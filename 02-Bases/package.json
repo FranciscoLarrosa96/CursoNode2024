@@ -1,0 +1,13 @@
+{
+  "name": "02-bases",
+  "version": "0.0.1",
+  "description": "Primera app Node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev" : "echo 'hola dev'"
+  },
+  "author": "Francisco Larrosa",
+  "license": "ISC"
+}
