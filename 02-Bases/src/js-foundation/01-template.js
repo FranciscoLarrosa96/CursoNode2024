@@ -1,7 +1,7 @@
 const emailTemplate = `
     <div>
         <h1>Hi Fran</h1>
-        <p>Thanks for your order</p>
+        <p>Nodemon works!s</p>
     </div>
 `;
 
