@@ -10,8 +10,10 @@ const users = [
 ];
 
 //El callback lo ejecuto cuando ya se realizo una tarea en este caso obtener el user
-const getUserById = (id, callback) => {
-    const user = users.find((user) => user.id === id);
+function getUserById(id, callback) {
+    const user = users.find(function (user) {
+        return user.id === id;
+    });
 
     if (!user) {
         return callback(`USUARIO NO ENCONTRADO ${id}`);
