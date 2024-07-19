@@ -1,7 +1,6 @@
-const {getAge,getUuid} = require('../plugins');
+const { getAge, getUuid } = require('../../plugins');
 
 const buildPerson = ({ name, birthdate }) => {
-
 
     return {
         id: getUuid(),
