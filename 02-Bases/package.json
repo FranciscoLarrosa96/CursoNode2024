@@ -6,11 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
-    "dev" : "nodemon src/app.js"
+    "dev": "nodemon src/app.js"
   },
   "author": "Francisco Larrosa",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.1.4"
+  },
+  "dependencies": {
+    "get-age": "^1.0.1",
+    "uuid": "^10.0.0"
   }
 }
