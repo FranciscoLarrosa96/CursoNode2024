@@ -1,7 +1,7 @@
-const axios = require('axios');
+import axios from "axios";
 
-const httpClientPlugin = {
-    get: async (url) => {
+export const httpClientPlugin = {
+    get: async (url:string) => {
         try {
             const {data} = await axios.get(url);
             return data;
@@ -9,8 +9,4 @@ const httpClientPlugin = {
             console.error('ERROR=>', error);
         }
     }
-};
-
-module.exports = {
-    http: httpClientPlugin
 };

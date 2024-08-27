@@ -1,4 +1,4 @@
-const emailTemplate = `
+ export const emailTemplate = `
     <div>
         <h1>Hi Fran</h1>
         <p>Nodemon works!s</p>
