@@ -8,7 +8,7 @@ describe('App', () => {
         const result = num1 + num2;
 
         //3.Assert
-        expect(result).toBe(302);
+        expect(result).toBe(30);
 
     });
 });
