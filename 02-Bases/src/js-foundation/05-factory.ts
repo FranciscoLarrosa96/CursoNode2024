@@ -9,7 +9,7 @@ interface PersonOptions {
     birthdate: string;
 }
 // Esto es una factory function es una funcion que retorna otra
-const buildMakePerson = ({ getUuid, getAge }: BuildMakerPersonOptions) => {
+export const buildMakePerson = ({ getUuid, getAge }: BuildMakerPersonOptions) => {
     return ({ name, birthdate }: PersonOptions) => {
 
         return {

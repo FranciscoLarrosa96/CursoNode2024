@@ -1,7 +1,7 @@
  export const emailTemplate = `
     <div>
-        <h1>Hi Fran</h1>
-        <p>Nodemon works!s</p>
+        <h1>Hi {{name}}</h1>
+        <p>Order id: {{orderId}}</p>
     </div>
 `;
 
