@@ -1,4 +1,5 @@
 import { yarg } from "./config/plugins/yargs.plugin";
+import { ServerApp } from "./presentation/server-app";
 
 //Esto es una funcion anonima autoinvocada
 (async () => {
@@ -6,6 +7,7 @@ import { yarg } from "./config/plugins/yargs.plugin";
 })();
 
 async function main() {
-    console.log(yarg);
+    const { b: base, l: limit, s: showTable } = yarg;
+    ServerApp.run({base,limit,showTable});
 }
 
