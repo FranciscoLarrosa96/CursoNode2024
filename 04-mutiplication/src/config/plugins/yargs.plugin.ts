@@ -15,15 +15,22 @@ export const yarg = yargs(hideBin(process.argv))
             alias: 'limit',
             type: 'number',
             default: 10,
-             describe: 'Multiplication table limit'
+            describe: 'Multiplication table limit'
         }
     )
     .option('s',
         {
-            alias:"show",
+            alias: "show",
             type: 'boolean',
             default: false,
             describe: 'Show Multiplication table'
         }
     )
+    .check((argv, options) => {
+        if (argv.b < 1) {
+            throw 'Tiene que ser mayor a 0 la base'
+        }
+
+        return true;
+    })
     .parseSync();
