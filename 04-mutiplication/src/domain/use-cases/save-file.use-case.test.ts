@@ -2,13 +2,12 @@ import { SaveFile } from "./save-file.use-case";
 import fs from 'fs';
 describe('SaveFileUseCase', () => {
 
-    beforeEach(() => {
-        // clean up
-        fs.rmSync('outputs', { recursive: true });
-    });
 
     afterEach(() => {
-        fs.rmSync('outputs', { recursive: true });
+        const outputFolderExist = fs.existsSync('outputs');
+        if(outputFolderExist){
+            fs.rmSync('outputs', { recursive: true });
+        }
     });
 
     test('Should save file with default values', () => {
@@ -24,5 +23,21 @@ describe('SaveFileUseCase', () => {
         expect(fileExist).toBe(true);
         expect(fileContent).toBe(options.fileContent);
 
+    });
+
+    test('Should save file with custom values', () => {
+        const options = {
+            fileContent: 'custom content',
+            fileDestination: 'custom-outputs',
+            fileName: 'custom-table-name'
+        }
+        const saveFile = new SaveFile();
+        const filePath = `${options.fileDestination}/${options.fileName}.txt`;
+        const result = saveFile.execute(options);
+        const fileExist = fs.existsSync(filePath);
+        const fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });
+        expect(result).toBe(true);
+        expect(fileExist).toBe(true);
+        expect(fileContent).toBe(options.fileContent);
     });
 });
