@@ -15,11 +15,13 @@ export class ServerApp {
         const table = new CreateTable().execute({ base, limit });
         const wasCreated = new SaveFile().execute({
             fileContent: table,
-            destination: `${destinationFile}/table-${base}`,
+            destination: `${destinationFile}`,
             fileName: nameFile
         });
         if (showTable) {
             console.log("🚀 ~ ServerApp ~ run ~ table:", table)
         }
+        console.log('Server runing...');
+        
     }
 }
