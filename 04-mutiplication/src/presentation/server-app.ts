@@ -6,17 +6,20 @@ interface RunOptions {
     limit: number,
     showTable: boolean,
     nameFile?: string,
-    destinationFile?:string
+    destinationFile?: string
 }
 
 export class ServerApp {
 
-    static run({ base, limit, showTable,nameFile,destinationFile }: RunOptions) {
+    static run({ base, limit, showTable, nameFile, destinationFile }: RunOptions) {
         const table = new CreateTable().execute({ base, limit });
-        const wasCreated = new SaveFile().execute({ 
-            fileContent: table, 
+        const wasCreated = new SaveFile().execute({
+            fileContent: table,
             destination: `${destinationFile}/table-${base}`,
             fileName: nameFile
-         });
+        });
+        if (showTable) {
+            console.log("🚀 ~ ServerApp ~ run ~ table:", table)
+        }
     }
 }

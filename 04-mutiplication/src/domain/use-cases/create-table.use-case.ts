@@ -3,7 +3,7 @@ export interface CreateTableUseCase {
 }
 export interface CreateTableOptions {
     base: number;
-    limit: number;
+    limit?: number;
 }
 
 export class CreateTable implements CreateTableUseCase {
@@ -16,7 +16,7 @@ export class CreateTable implements CreateTableUseCase {
 
     execute({ base, limit  }: CreateTableOptions) {
         let outputMessage = '';
-        for (let index = 1; index < limit; index++) {
+        for (let index = 1; index < limit!; index++) {
             outputMessage += `${base} x ${index} = ${base * index}\n`
         }
         return outputMessage;
