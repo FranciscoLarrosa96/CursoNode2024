@@ -7,7 +7,7 @@ export class Server {
         CronService.crateJob(
             '*/2 * * * * *',
             () => {
-                new CheckService().execute('https://google.com');
+                new CheckService().execute('http://localhost:3000');
             }
         );
     }
