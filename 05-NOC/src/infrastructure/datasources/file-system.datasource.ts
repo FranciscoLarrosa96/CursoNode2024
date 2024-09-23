@@ -7,7 +7,7 @@ import fs from 'fs';
 export class FileSystemDatasource implements LogDataSource {
 
     private readonly logPath = 'logs/';
-    private readonly alllogsPaht = 'logs/logs-low.log';
+    private readonly allLogsPaht = 'logs/logs-all.log';
     private readonly mediumlogsPaht = 'logs/logs-medium.log';
     private readonly highlogsPaht = 'logs/logs-high.log';
 
@@ -22,7 +22,7 @@ export class FileSystemDatasource implements LogDataSource {
         }
 
         [
-            this.alllogsPaht,
+            this.allLogsPaht,
             this.mediumlogsPaht,
             this.highlogsPaht
         ].forEach(path => {
@@ -32,8 +32,20 @@ export class FileSystemDatasource implements LogDataSource {
         });
     }
 
-    saveLog(log: LogEntity): Promise<void> {
-        throw new Error("Method not implemented.");
+    async saveLog(newLog: LogEntity): Promise<void> {
+
+        const logAsJson = `${JSON.stringify(newLog)}\n`;
+
+        fs.appendFileSync(this.allLogsPaht, logAsJson)
+
+        if (newLog.level === LogSeverityLevel.low) {
+            return;
+        }
+        if (newLog.level === LogSeverityLevel.medium) {
+            fs.appendFileSync(this.mediumlogsPaht, logAsJson);
+        }else{
+            fs.appendFileSync(this.highlogsPaht, logAsJson);
+        }
     }
     getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
         throw new Error("Method not implemented.");
