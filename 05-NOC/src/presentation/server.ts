@@ -7,7 +7,10 @@ export class Server {
         CronService.crateJob(
             '*/2 * * * * *',
             () => {
-                new CheckService().execute('http://localhost:3000');
+                new CheckService(
+                    () => console.log('Succes!'),
+                    (error) => console.log(error)
+                ).execute('http://localhost:3000');
             }
         );
     }
