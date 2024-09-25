@@ -6,6 +6,5 @@ import { Server } from "./presentation/server";
 })();
 
 function main(){
-    // Server.start();
-    console.log('ENVS->',envs);
+    Server.start();
 }
