@@ -25,7 +25,7 @@ async function main(){
     // await newLog.save();
     // const logs = await LogModel.find();
     // console.log("🚀 ~ main ~ logs:", logs)
-    // Server.start();
+    Server.start();
     // console.log("🚀 ~ envs:", envs)
     // console.log("🚀 ~ main ~ newLog:", newLog)
 }
