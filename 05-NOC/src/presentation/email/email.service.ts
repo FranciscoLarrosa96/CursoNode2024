@@ -18,9 +18,7 @@ interface Attachments {
 
 export class EmailService {
 
-    constructor(
-        private readonly logRepository: LogRepository
-    ) { }
+    constructor() { }
 
     private transporter = nodemailer.createTransport(
         {
@@ -46,7 +44,6 @@ export class EmailService {
                     origin: 'email.servise.ts'
                 }
             );
-            this.logRepository.saveLog(log);
             return true;
         } catch (error) {
             const log = new LogEntity(
@@ -56,7 +53,6 @@ export class EmailService {
                     origin: 'email.servise.ts'
                 }
             );
-            this.logRepository.saveLog(log);
             return false;
         }
     }
