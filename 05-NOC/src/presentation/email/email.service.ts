@@ -37,22 +37,8 @@ export class EmailService {
             const sentInformation = await this.transporter.sendMail({
                 to, subject, html: htmlBody, attachments
             });
-            const log = new LogEntity(
-                {
-                    level: LogSeverityLevel.low,
-                    message: 'Email sent',
-                    origin: 'email.servise.ts'
-                }
-            );
             return true;
         } catch (error) {
-            const log = new LogEntity(
-                {
-                    level: LogSeverityLevel.high,
-                    message: 'Email not sent',
-                    origin: 'email.servise.ts'
-                }
-            );
             return false;
         }
     }

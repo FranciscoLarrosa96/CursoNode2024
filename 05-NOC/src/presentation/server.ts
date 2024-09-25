@@ -22,10 +22,10 @@ export class Server {
         //         ).execute('http://localhost:3000');
         //     }
         // );  
-        new SendEmailLogs(
-            emailService,
-            fileSystemLogRepository
-        ).execute('hunteofgames@gmail.com');
+        // new SendEmailLogs(
+        //     emailService,
+        //     fileSystemLogRepository
+        // ).execute('hunteofgames@gmail.com');
         // emailService.sendEmailWithSystemLogs(
         //         'hunteofgames@gmail.com'
         // );
