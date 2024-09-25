@@ -2,6 +2,7 @@ import { CheckService } from "../domain/uses-cases/checks/check-service";
 import { FileSystemDatasource } from "../infrastructure/datasources/file-system.datasource";
 import { LogRepositoryImpl } from "../infrastructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
+import { EmailService } from "./email/email.service";
 
 const fileSystemLogRepository = new LogRepositoryImpl(new FileSystemDatasource);
 
@@ -19,5 +20,13 @@ export class Server {
         //         ).execute('http://localhost:3000');
         //     }
         // );  
+        const emailService = new EmailService();
+        emailService.sendEmail({
+            to: 'hunteofgames@gmail.com',
+            subject : 'Logs de sistema',
+            htmlBody : `
+                <h3> Logs de sistema - NOC </h3>
+            `
+        });
     }
 }
