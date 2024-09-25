@@ -20,9 +20,9 @@ export class Server {
         //         ).execute('http://localhost:3000');
         //     }
         // );  
-        // const emailService = new EmailService();
-        // emailService.sendEmailWithSystemLogs(
-        //         'hunteofgames@gmail.com'
-        // );
+        const emailService = new EmailService(fileSystemLogRepository);
+        emailService.sendEmailWithSystemLogs(
+                'hunteofgames@gmail.com'
+        );
     }
 }
