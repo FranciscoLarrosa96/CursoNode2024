@@ -7,6 +7,8 @@ import { EmailService } from "./email/email.service";
 
 const fileSystemLogRepository = new LogRepositoryImpl(new FileSystemDatasource);
 const emailService = new EmailService();
+
+
 export class Server {
 
     static start() {
