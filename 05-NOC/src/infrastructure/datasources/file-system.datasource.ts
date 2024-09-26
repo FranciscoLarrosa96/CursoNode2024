@@ -46,6 +46,7 @@ export class FileSystemDatasource implements LogDataSource {
         } else {
             fs.appendFileSync(this.highlogsPaht, logAsJson);
         }
+        console.log('Log saved File System');
     }
 
     private getLogsFromFile = (path: string): LogEntity[] => {

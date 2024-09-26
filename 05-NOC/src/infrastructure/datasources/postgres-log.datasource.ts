@@ -30,7 +30,7 @@ export class PostgresLogDataSource implements LogDataSource {
                 level
             }
         });
-        
+        console.log('Log saved Postgres');
     }
 
 }
