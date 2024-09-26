@@ -14,9 +14,9 @@ datasource db {
 }
 
 enum SeverityLevel {
-  INFO
-  WARNING
-  ERROR
+  LOW
+  MEDIUM
+  HIGH
 }
 
 model LogModel {
