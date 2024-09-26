@@ -32,9 +32,8 @@ export class Server {
         // emailService.sendEmailWithSystemLogs(
         //         'hunteofgames@gmail.com'
         // );
-        const logs = await logRepository.getLogs(LogSeverityLevel.high);
-        console.log("🚀 ~ Server ~ start ~ logs:", logs)
-        
+        // const logs = await logRepository.getLogs(LogSeverityLevel.high);
+        // console.log("🚀 ~ Server ~ start ~ logs:", logs);
         // CronService.crateJob(
         //     '*/5 * * * * *',
         //     () => {
