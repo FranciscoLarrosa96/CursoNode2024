@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { TodosController } from "./todos/controler";
+import { TodosController } from "./todos/controller";
 import { TodoRoutes } from "./todos/routes";
 
 
