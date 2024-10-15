@@ -7,3 +7,5 @@ mongo/
 .env
 
 keys/
+
+postgres/
