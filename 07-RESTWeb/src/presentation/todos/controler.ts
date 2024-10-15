@@ -40,4 +40,21 @@ export class TodosController {
             { error: 'Todo not found' }
         );
     }
+
+    public createTodo = (req: Request, res: Response) => {
+        const { name } = req.body;
+        if (!name) {
+            res.status(400).json(
+                { error: 'Name is required' }
+            );
+            return;
+        }
+        const todo = {
+            id: todos.length + 1,
+            name,
+            createAt: new Date()
+        }
+        todos.push(todo);
+        res.status(201).json(todo);
+    }
 }
