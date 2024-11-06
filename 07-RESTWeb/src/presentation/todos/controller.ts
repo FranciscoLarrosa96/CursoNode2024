@@ -46,7 +46,8 @@ export class TodosController {
                 { error }
             );
         }
-
+        console.log('createTodoDto', createTodoDto);
+        
         const todo = await prisma.todo.create({
             data: createTodoDto!
         });
