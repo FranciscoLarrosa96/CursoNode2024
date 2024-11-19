@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { prisma } from '../../data/postgresData';
 import { CreateTodoDto, UpdateTodoDto } from '../../domain/dtos';
-import { TodoDataRepository } from '../../domain';
+import { CreateTodo, DeleteTodo, GetTodo, GetTodos, TodoDataRepository, UpdateTodo } from '../../domain';
 
 
 
@@ -10,25 +9,33 @@ export class TodosController {
     constructor(private readonly todoRepository: TodoDataRepository) { }
 
 
-    public getTodos = async (req: Request, res: Response) => {
-        const allTodos = await this.todoRepository.getTodos();
-        res.json(allTodos);
+    public getTodos = (req: Request, res: Response) => {
+        new GetTodos(this.todoRepository).execute()
+            .then((allTodos) => {
+                res.json(allTodos);
+            })
+            .catch((error) => {
+                res.status(400).json(
+                    { error }
+                );
+            });
     }
 
-    public getTodoById = async (req: Request, res: Response) => {
+    public getTodoById = (req: Request, res: Response) => {
 
-        const id = +req.params.id;
-        try {
-            const todo = await this.todoRepository.findTodoById(id);
-            res.json(todo);
-        } catch (error) {
-            res.status(404).json(
-                { error: 'Todo not found' }
-            );
-        }
+        new GetTodo(this.todoRepository).execute(+req.params.id)
+            .then((todo) => {
+                res.json(todo);
+            })
+            .catch((error) => {
+                res.status(404).json(
+                    { error: 'Todo not found!' }
+                );
+            });
+
     }
 
-    public createTodo = async (req: Request, res: Response) => {
+    public createTodo = (req: Request, res: Response) => {
         const [error, createTodoDto] = CreateTodoDto.create(req.body);
 
 
@@ -37,11 +44,19 @@ export class TodosController {
                 { error }
             );
         }
-        const todo = await this.todoRepository.createTodo(createTodoDto!);
-        res.json(todo);
+
+        new CreateTodo(this.todoRepository).execute(createTodoDto!)
+            .then((todo) => {
+                res.json(todo);
+            })
+            .catch((error) => {
+                res.status(400).json(
+                    { error }
+                );
+            });
     }
 
-    public updateTodo = async (req: Request, res: Response) => {
+    public updateTodo = (req: Request, res: Response) => {
         const id = +req.params.id;
         const [error, upDateTodoDto] = UpdateTodoDto.create(
             {
@@ -58,13 +73,28 @@ export class TodosController {
             return;
         }
 
-        const updatedTodo = await this.todoRepository.updateTodoById(upDateTodoDto!);
-        res.json(updatedTodo);
+        new UpdateTodo(this.todoRepository).execute(upDateTodoDto!)
+            .then((updatedTodo) => {
+                res.json(updatedTodo);
+            })
+            .catch((error) => {
+                res.status(400).json(
+                    { error }
+                );
+            });
     }
 
-    public deleteTodo = async (req: Request, res: Response) => {
+    public deleteTodo = (req: Request, res: Response) => {
         const id = +req.params.id;
-        const todo = await this.todoRepository.deleteTodoById(id);
-        res.json(todo);
+
+        new DeleteTodo(this.todoRepository).execute(id)
+            .then((todo) => {
+                res.json(todo);
+            })
+            .catch((error) => {
+                res.status(400).json(
+                    { error }
+                );
+            });
     }
 }
