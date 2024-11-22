@@ -1,6 +1,6 @@
 import { bcryptAdapter } from "../../config";
 import { UserModel } from "../../data";
-import { CustomError, RegisterUserDto, UserEntity } from "../../domain";
+import { CustomError, LoginUserDto, RegisterUserDto, UserEntity } from "../../domain";
 
 export class AuthService {
     constructor() {
@@ -20,8 +20,6 @@ export class AuthService {
 
             const newUser = new UserModel(registerUserDto);
             // Encriptar la contraseña
-            
-            
             newUser.password = bcryptAdapter.hash(registerUserDto.password);
 
             await newUser.save();
@@ -37,6 +35,32 @@ export class AuthService {
             return { user: userEntity, token: 'ABC' };
         } catch (error) {
             throw CustomError.internalServerError(`${error}`);
+        }
+    }
+
+
+    async login(loginUserDto: LoginUserDto) {
+        // FindOne verifica si existe el usuario
+        const user = await UserModel.findOne({
+            email: loginUserDto.email
+        });
+        if (!user) {
+            throw CustomError.badRequest('Invalid credentials');
+        }
+
+        // isMatch verifica si la contraseña es correcta
+        const isMatch = bcryptAdapter.compare(loginUserDto.password, user.password);
+
+
+        if (!isMatch) {
+            throw CustomError.badRequest('Invalid credentials');
+        }
+
+
+        const { password, ...userEntity } = UserEntity.fromObject(user);
+        return {
+            user: userEntity,
+            token: 'Logueado'
         }
     }
 }

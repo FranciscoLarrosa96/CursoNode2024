@@ -12,7 +12,7 @@ export class UserEntity {
         public readonly img?: string,
     ) { }
 
-    static fromObject(obj: { [key: string]: any }) {
+    static fromObject(user: { [key: string]: any }) {
         const {
             id,
             _id,
@@ -22,7 +22,7 @@ export class UserEntity {
             password,
             role,
             img
-        } = obj;
+        } = user;
 
         if (!id && !_id) {
             throw CustomError.badRequest('Missing id');
