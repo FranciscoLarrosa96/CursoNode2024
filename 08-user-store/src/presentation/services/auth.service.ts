@@ -31,8 +31,12 @@ export class AuthService {
             // Email de validación
 
             const { password, ...userEntity } = UserEntity.fromObject(newUser);
+            const token = await jwtAdapter.generateToken({ id: newUser._id, email: newUser.email });
 
-            return { user: userEntity, token: 'ABC' };
+        if (!token) {
+            throw CustomError.internalServerError('Error generating token');
+        }
+            return { user: userEntity, token };
         } catch (error) {
             throw CustomError.internalServerError(`${error}`);
         }
