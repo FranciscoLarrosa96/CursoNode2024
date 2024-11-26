@@ -1,9 +1,10 @@
-import { bcryptAdapter, jwtAdapter } from "../../config";
+import { bcryptAdapter, envs, jwtAdapter } from "../../config";
 import { UserModel } from "../../data";
 import { CustomError, LoginUserDto, RegisterUserDto, UserEntity } from "../../domain";
+import { EmailService, SendMailOptions } from "./email.service";
 
 export class AuthService {
-    constructor() {
+    constructor(private readonly emailService: EmailService) {
 
     }
     async registerUser(registerUserDto: RegisterUserDto) {
@@ -30,12 +31,14 @@ export class AuthService {
 
             // Email de validación
 
+            await this.sendValidationEmail(newUser.email);
+
             const { password, ...userEntity } = UserEntity.fromObject(newUser);
             const token = await jwtAdapter.generateToken({ id: newUser._id, email: newUser.email });
 
-        if (!token) {
-            throw CustomError.internalServerError('Error generating token');
-        }
+            if (!token) {
+                throw CustomError.internalServerError('Error generating token');
+            }
             return { user: userEntity, token };
         } catch (error) {
             throw CustomError.internalServerError(`${error}`);
@@ -73,5 +76,38 @@ export class AuthService {
             user: userEntity,
             token
         }
+    }
+
+
+    private sendValidationEmail = async (email: string) => {
+
+        const token = await jwtAdapter.generateToken({ email });
+
+        if (!token) {
+            throw CustomError.internalServerError('Error generating token');
+        }
+
+        const link = `${envs.WEBSERVICE_URL}/auth/validate-email/${token}`;
+
+        const html = `
+        <h1>Validate your email</h1>
+        <p>Click the following link to validate your email</p>
+        <a href="${link}">Validate email</a>
+        `;
+
+        const options: SendMailOptions = {
+            to: email,
+            subject: 'Validate your email',
+            htmlBody: html
+        }
+
+        const isSet = await this.emailService.sendEmail(options);
+
+        if (!isSet) {
+            throw CustomError.internalServerError('Error sending email');
+        }
+
+        return true;
+
     }
 }
