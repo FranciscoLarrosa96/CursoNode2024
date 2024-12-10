@@ -22,7 +22,7 @@ export class CategoryController {
         if (error) {
             return res.status(400).json({ message: error });
         }
-        res.json(createcategoryDto);
+        res.json(req.body);
     };
 
     getCategories = async (req: Request, res: Response) => {
