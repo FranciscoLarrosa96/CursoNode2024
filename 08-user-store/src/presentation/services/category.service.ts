@@ -28,7 +28,7 @@ export class CategoryService {
 
             return {
                 id: newCategory.id,
-                name: newCategory.name, 
+                name: newCategory.name,
                 available: newCategory.available,
             };
         } catch (error) {
@@ -36,7 +36,19 @@ export class CategoryService {
         }
     };
 
-   async getCategories()  {
-        return { message: 'get categories' };
+    async getCategories() {
+        try {
+            const categories = await CategoryModel.find();
+            return categories.map((category) => {
+                return {
+                    id: category.id,
+                    name: category.name,
+                    available: category.available,
+                };
+            });
+        } catch (error) {
+            throw CustomError.internalServerError(`${error}`);
+        }
+
     };
 }
